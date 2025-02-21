@@ -1,0 +1,28 @@
+.dataContactForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 400px;
+}
+
+.dataContactForm > :last-child {
+  margin: auto;
+}
+
+.dataContactForm span {
+  color: tomato;
+  padding-top: 2px;
+}
+
+.fieldForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnForm {
+  padding: 10px;
+  width: 130px;
+}
