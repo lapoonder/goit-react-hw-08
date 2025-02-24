@@ -3,7 +3,6 @@ import { logOut } from "../../redux/auth/operations";
 import { selectUser } from "../../redux/auth/selectors";
 import css from "./UserMenu.module.css";
 import React from "react";
-import { clearAllContactsFromState } from "../../redux/contacts/operations.js";
 
 export const UserMenu = () => {
     const dispatch = useDispatch();
@@ -11,7 +10,6 @@ export const UserMenu = () => {
 
     const cleanAll = () => {
         dispatch(logOut());
-        dispatch(clearAllContactsFromState()); // Очистка списка контактов в state
     };
 
     return (

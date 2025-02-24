@@ -5,6 +5,7 @@ import {
     deleteContact,
     editContact,
 } from "./operations";
+import { logOut } from "../auth/operations";
 
 const handlePending = (state) => {
     state.isLoading = true;
@@ -15,19 +16,17 @@ const handleRejected = (state, action) => {
     state.error = action.payload;
 };
 
+const initialState = {
+    items: [],
+    isLoading: false,
+    error: null,
+};
+
 const contactsSlice = createSlice({
     name: "contacts",
-    initialState: {
-        items: [],
-        isLoading: false,
-        error: null,
-    },
+    initialState,
 
-    reducers: {
-        clearContacts: (state) => {
-            state.items = [];
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchContacts.pending, handlePending)
@@ -62,10 +61,9 @@ const contactsSlice = createSlice({
                 );
                 state.items.push(action.payload);
             })
+            .addCase(logOut.fulfilled, () => initialState)
             .addCase(editContact.rejected, handleRejected);
     },
 });
 
 export default contactsSlice.reducer;
-
-export const { clearContacts } = contactsSlice.actions;

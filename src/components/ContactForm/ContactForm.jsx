@@ -16,8 +16,10 @@ function ContactForm() {
     const handleSubmit = (values, actions) => {
         dispatch(addContact(values))
             .unwrap() //unwrap() используется при dispatch(register(values)), чтобы ошибки из rejectWithValue не попадали в fulfilled-состояние.
-            .then(() => {
-                notifySuccess("New contact has been added successfully!");
+            .then((res) => {
+                notifySuccess(
+                    `New contact ${res.name} has been added successfully!`
+                );
                 actions.resetForm();
                 document.activeElement.blur(); // Убираем фокус с активного элемента
             })

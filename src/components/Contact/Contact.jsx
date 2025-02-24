@@ -40,8 +40,10 @@ const Contact = ({ contact }) => {
     const delContact = (ContactId) => {
         dispatch(deleteContact(ContactId))
             .unwrap() //unwrap() используется при dispatch(register(values)), чтобы ошибки из rejectWithValue не попадали в fulfilled-состояние.
-            .then(() => {
-                notifySuccess("Contact has been deleted successfully!");
+            .then((res) => {
+                notifySuccess(
+                    `Contact ${res.name} has been deleted successfully!`
+                );
             })
             .catch((error) => {
                 notifyError(error);
@@ -57,8 +59,10 @@ const Contact = ({ contact }) => {
     const editorContact = (values, actions) => {
         dispatch(editContact(values))
             .unwrap() //unwrap() используется при dispatch(register(values)), чтобы ошибки из rejectWithValue не попадали в fulfilled-состояние.
-            .then(() => {
-                notifySuccess("Contact has been edited successfully!");
+            .then((res) => {
+                notifySuccess(
+                    `Contact ${res.name} has been edited successfully!`
+                );
                 actions.resetForm();
                 document.activeElement.blur(); // Убираем фокус с активного элемента
             })

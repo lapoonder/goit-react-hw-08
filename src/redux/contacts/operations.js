@@ -1,6 +1,5 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { clearContacts } from "./slice";
 
 export const fetchContacts = createAsyncThunk(
     "contacts/fetchAll",
@@ -55,7 +54,3 @@ export const editContact = createAsyncThunk(
         }
     }
 );
-
-export const clearAllContactsFromState = () => (dispatch) => {
-    dispatch(clearContacts());
-};
