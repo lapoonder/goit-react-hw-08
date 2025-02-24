@@ -4,16 +4,16 @@ const filterSlice = createSlice({
     name: "filters",
 
     initialState: {
-        name: "",
+        searchText: "",
     },
 
     reducers: {
-        selectNameFilter(state, action) {
-            state.name = action.payload;
+        selectSearchTextFilter(state, action) {
+            state.searchText = action.payload;
         },
     },
 });
 
-export const { selectNameFilter } = filterSlice.actions;
+export const { selectSearchTextFilter } = filterSlice.actions;
 
 export default filterSlice.reducer;

@@ -1,41 +1,77 @@
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContacts } from "../../redux/contactsOps.js";
-import ContactForm from "../ContactForm/ContactForm.jsx";
-import SearchBox from "../SearchBox/SearchBox.jsx";
-import ContactList from "../ContactList/ContactList.jsx";
-import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx";
-import { List } from "react-content-loader";
+import { Routes, Route } from "react-router-dom";
+import { PrivateRoute } from "../PrivateRoute/PrivateRoute.jsx";
+import { RestrictedRoute } from "../RestrictedRoute/RestrictedRoute.jsx";
+import { Layout } from "../Layout/Layout.jsx";
+import { refreshUser } from "../../redux/auth/operations";
+import { selectIsRefreshing } from "../../redux/auth/selectors";
 import clsx from "clsx";
 import css from "./App.module.css";
-import { contactsSlice } from "../../redux/selectors.js";
 
-const MyListLoader = () => <List />;
+const NotFoundPage = lazy(() =>
+    import("../../pages/NotFoundPage/NotFoundPage.jsx")
+);
+const HomePage = lazy(() => import("../../pages/HomePage/HomePage.jsx"));
+const RegistrationPage = lazy(() =>
+    import("../../pages/RegistrationPage/RegistrationPage.jsx")
+);
+const LoginPage = lazy(() => import("../../pages/LoginPage/LoginPage.jsx"));
+const ContactsPage = lazy(() =>
+    import("../../pages/ContactsPage/ContactsPage.jsx")
+);
 
 function App() {
     const dispatch = useDispatch();
-    const { items, isLoading, error } = useSelector(contactsSlice);
+    const isRefreshing = useSelector(selectIsRefreshing);
 
     useEffect(() => {
-        dispatch(fetchContacts());
-    }, [dispatch]);
+        dispatch(refreshUser());
+    }, [dispatch]); // эффект будет срабатывать только один раз при монтировании компонента (поскольку dispatch не изменяется).
 
-    return (
+    return isRefreshing ? (
+        <b>Refreshing user...</b>
+    ) : (
         <>
             <header className="header">
                 <div className="container">
                     <h1 className={clsx(css.siteHeader)}>Phonebook</h1>
                 </div>
             </header>
-            <div className="section">
-                <div className="container">
-                    <ContactForm />
-                </div>
-            </div>
-            {items.length > 0 && <SearchBox />}
-            {isLoading && <MyListLoader />}
-            {error && <ErrorMessage />}
-            {items.length > 0 && <ContactList />}
+            <Layout>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route
+                        path="/register"
+                        element={
+                            <RestrictedRoute
+                                redirectTo="/contacts"
+                                component={<RegistrationPage />}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <RestrictedRoute
+                                redirectTo="/contacts"
+                                component={<LoginPage />}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/contacts"
+                        element={
+                            <PrivateRoute
+                                redirectTo="/login"
+                                component={<ContactsPage />}
+                            />
+                        }
+                    />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+            </Layout>
+            <footer className="footer"></footer>
         </>
     );
 }

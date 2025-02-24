@@ -1,0 +1,6 @@
+.searchTrand {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    line-height: 1;
+}

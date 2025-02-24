@@ -1,0 +1,18 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.link {
+    font-size: 24px;
+    color: #000;
+}
+
+.link.active {
+    color: red;
+}
+
+.link:hover {
+    color: rgb(255, 117, 117);
+}

@@ -1,0 +1,24 @@
+.heroNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+}
+.authMenu {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.link {
+    font-size: 24px;
+    color: #000;
+}
+
+.link.active {
+    color: red;
+}
+
+.link:hover {
+    color: rgb(255, 117, 117);
+}

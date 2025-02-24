@@ -1,0 +1,31 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    width: 400px;
+    margin: auto;
+}
+
+.form span {
+    padding-top: 8px;
+    color: red;
+}
+
+.fieldForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.btnForm {
+    padding: 10px;
+    width: 130px;
+}
