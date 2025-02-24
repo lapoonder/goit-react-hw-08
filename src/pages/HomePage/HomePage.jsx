@@ -12,7 +12,7 @@ const HomePage = () => {
             <div className="section">
                 <div className={clsx("container")}>
                     <div className={clsx(css.searchTrand)}>
-                        <h2>Welcome to website:</h2>
+                        <h2>Welcome!</h2>
                     </div>
                 </div>
             </div>
